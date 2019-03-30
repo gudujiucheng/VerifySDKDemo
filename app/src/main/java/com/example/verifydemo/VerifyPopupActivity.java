@@ -127,6 +127,8 @@ public class VerifyPopupActivity extends Activity {
         mContainer = (RelativeLayout)findViewById(R.id.container);
         mProgressBar = (ProgressBar)findViewById(R.id.progressBar);
         mWebView.setVisibility(View.INVISIBLE);
+//        mWebView.setHorizontalScrollBarEnabled(false);
+//        mWebView.setVerticalScrollBarEnabled(false);
         mContainer.addView(mWebView);
         android.view.WindowManager.LayoutParams attributes = getWindow().getAttributes();
         attributes.width = iframeWidthPX;
@@ -152,4 +154,9 @@ public class VerifyPopupActivity extends Activity {
         VerifyCoder.getVerifyCoder().release();
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
+    }
 }

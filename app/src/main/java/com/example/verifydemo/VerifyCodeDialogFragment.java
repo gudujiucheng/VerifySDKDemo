@@ -60,11 +60,11 @@ public class VerifyCodeDialogFragment extends DialogFragment {
             //收到验证码页面(包括图片)加载完成回调时，把Loading隐藏，WebView显示
             mProgressBar.setVisibility(View.INVISIBLE);
             mWebView.setVisibility(View.VISIBLE);
-//            getDialog().getWindow().setLayout(mIframeWidthPX ,ViewGroup.LayoutParams.WRAP_CONTENT );
         }
 
         @Override
         public void onIFrameResize(float width, float height) {
+            Log.e("Test","onIFrameResize width"+width+" height:"+height);
             android.view.WindowManager.LayoutParams attributes =  getDialog().getWindow().getAttributes();
             attributes.width = (int)(width*mDensity);
             attributes.height = (int)(height*mDensity);
@@ -84,6 +84,7 @@ public class VerifyCodeDialogFragment extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.dialog);
         Bundle arguments = getArguments();
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         if (arguments != null) {
@@ -131,28 +132,7 @@ public class VerifyCodeDialogFragment extends DialogFragment {
             mContainer.addView(mWebView);
             mWebView.setHorizontalScrollBarEnabled(false);
             mWebView.setVerticalScrollBarEnabled(false);
-
-            mWebView.post(new Runnable() {
-                @Override
-                public void run() {
-                    Log.e("Test", "高度：height：" + mWebView.getHeight() + " width:" + mWebView.getWidth());
-                }
-            });
-
-            final Window window = getDialog().getWindow();
-            android.view.WindowManager.LayoutParams attributes =window.getAttributes();
-            attributes.width = mIframeWidthPX;
-            attributes.height = mIframeHeightPX;
-            window.setAttributes(attributes);
-//            if (window != null ) {
-//                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                android.view.WindowManager.LayoutParams attributes = window.getAttributes();
-//                attributes.width = mIframeWidthPX;
-//                attributes.height = mIframeHeightPX;
-//                window.setAttributes(attributes);
-//            }
-
-
+            mWebView.getSettings().setLoadWithOverviewMode(true);
             return view;
         } else {
             dismiss();
@@ -178,15 +158,15 @@ public class VerifyCodeDialogFragment extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-//        Dialog dialog = getDialog();
-//        if (dialog != null ) {
-//            final Window window = getDialog().getWindow();
-//            if (window != null) {
-//                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-//                Log.e("Test", "mIframeWidthPX:" + mIframeWidthPX + " mIframeHeightPX:" + mIframeHeightPX);
-//                window.setLayout(mIframeWidthPX,mIframeHeightPX);
-//            }
-//        }
+        Dialog dialog = getDialog();
+        if (dialog != null ) {
+            final Window window = getDialog().getWindow();
+            if (window != null) {
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Log.e("Test", "onStart  mIframeWidthPX:" + mIframeWidthPX + " mIframeHeightPX:" + mIframeHeightPX);
+                window.setLayout(mIframeWidthPX,mIframeHeightPX);
+            }
+        }
     }
 
 

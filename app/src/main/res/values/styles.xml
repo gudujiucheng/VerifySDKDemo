@@ -15,5 +15,6 @@
         <item name="android:windowIsTranslucent">true</item> <!-- 设置半透明 -->
         <item name="android:windowFullscreen">true</item> <!-- 设置全屏 -->
 
+
     </style>
 </resources>
